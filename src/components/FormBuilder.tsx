@@ -108,15 +108,30 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ formState, dispatch }) => {
       <div className="builder-controls">
         <h2>Form Builder</h2>
         <div className="field-types">
-          <button onClick={() => addField('text')}>+ Text</button>
-          <button onClick={() => addField('number')}>+ Number</button>
-          <button onClick={() => addField('dropdown')}>+ Dropdown</button>
+          <button onClick={() => addField('text')} >
+             <span className="btn-icon">📝</span>
+            + Text</button>
+          <button onClick={() => addField('number')}>
+            <span className="btn-icon">🔢</span>
+            + Number</button>
+          <button 
+            onClick={() => addField('dropdown')}
+          >
+            <span className="btn-icon">📋</span>
+            <span className="btn-text">+ Dropdown Field</span>
+          </button>
         </div>
       </div>
 
       <div className="fields-list">
         {formState.fields.length === 0 ? (
-          <p>No fields added yet. Start by adding a field type above.</p>
+          <div className="empty-state">
+            <div className="empty-icon">📝</div>
+            <h3>No fields added yet</h3>
+            <p>Start by adding a field type above</p>
+            </div>
+              
+          // <p>No fields added yet. Start by adding a field type above.</p>
         ) : (
           formState.fields.map((field) => (
             <div key={field.id} className="field-item">

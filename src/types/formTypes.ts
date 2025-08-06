@@ -26,4 +26,5 @@ export type Action =
   | { type: 'UPDATE_FIELD'; payload: Field }
   | { type: 'DELETE_FIELD'; payload: string } // field id
   | { type: 'UPDATE_FIELD_VALUE'; payload: { fieldId: string; value: string } }
-  | { type: 'RESET_FORM' };
+  | { type: 'RESET_FORM' }
+  | { type: 'INTERNAL_UPDATE'; payload: FormState }; // ✅ أضف دي
