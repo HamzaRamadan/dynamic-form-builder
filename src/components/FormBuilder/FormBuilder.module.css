@@ -1,0 +1,112 @@
+/* Form Builder Styles */
+.form_builder {
+  background   : white;
+  border-radius: 8px;
+  padding      : 1.5rem;
+  box-shadow   : 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.builder_controls {
+  margin-bottom : 2rem;
+  padding-bottom: 1rem;
+  border-bottom : 1px solid #eee;
+}
+
+.field_types {
+  display   : flex;
+  gap       : 1rem;
+  margin-top: 1rem;
+}
+
+.field_types button {
+  background-color: #3498db;
+  color           : white;
+  border          : none;
+  padding         : 0.5rem 1rem;
+  border-radius   : 4px;
+  cursor          : pointer;
+  transition      : background-color 0.3s;
+}
+
+.field_types button:hover {
+  background-color: #2980b9;
+}
+
+.fields_list {
+  display       : flex;
+  flex-direction: column;
+  gap           : 1rem;
+}
+
+.field_item {
+  border       : 1px solid #ddd;
+  border-radius: 4px;
+  padding      : 1rem;
+}
+
+.field_header {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  margin-bottom  : 0.5rem;
+}
+
+.field_label {
+  font-weight: bold;
+}
+
+.field_actions {
+  display: flex;
+  gap    : 0.5rem;
+}
+
+.field_actions button {
+  background   : none;
+  border       : 1px solid #ddd;
+  padding      : 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor       : pointer;
+  transition   : all 0.3s;
+}
+
+.field_actions button:hover {
+  background-color: #f5f5f5;
+}
+
+.field_conditions {
+  margin-top      : 0.5rem;
+  padding         : 0.5rem;
+  background-color: #f9f9f9;
+  border-radius   : 4px;
+  font-size       : 0.9rem;
+}
+
+.condition_item {
+  margin: 0.25rem 0;
+}
+
+.empty_state {
+  text-align   : center;
+  padding      : 4rem 2rem;
+  color        : #7f8c8d;
+  background   : linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  border       : 2px dashed #dee2e6;
+}
+
+.empty_icon {
+  font-size    : 4rem;
+  margin-bottom: 1rem;
+  opacity      : 0.7;
+}
+
+.empty_state h3 {
+  color        : #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size    : 1.5rem;
+}
+
+.empty_state p {
+  margin-bottom: 1rem;
+  font-size    : 1.1rem;
+}

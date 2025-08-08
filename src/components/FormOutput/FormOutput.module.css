@@ -1,0 +1,46 @@
+/* Form Output Styles */
+.form_output {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.form_output h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.form_output pre {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  border: 1px solid #eee;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.form_output button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  background-color: #007bff;
+  color: white;
+  margin-top: 10px;
+}
+
+.form_output button:hover {
+  background-color: #0056b3;
+}
+
+.form_output button.copied {
+  background-color: #28a745;
+}

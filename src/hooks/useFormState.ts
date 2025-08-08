@@ -22,7 +22,7 @@ const initFormState = (): FormState => {
   };
 };
 
-// ✅ إضافة حالة INTERNAL_UPDATE للـ reducer
+//  إضافة حالة INTERNAL_UPDATE للـ reducer
 function formReducer(state: FormState, action: Action): FormState {
   switch (action.type) {
     case 'ADD_FIELD':
@@ -74,7 +74,7 @@ function formReducer(state: FormState, action: Action): FormState {
         fields: [],
         fieldValues: {},
       };
-    // ✅ إضافة حالة جديدة للتحديث الداخلي (لـ Undo/Redo)
+    //  إضافة حالة جديدة للتحديث الداخلي (لـ Undo/Redo)
     case 'INTERNAL_UPDATE':
       return action.payload;
     default:
@@ -82,7 +82,7 @@ function formReducer(state: FormState, action: Action): FormState {
   }
 }
 
-// ✅ تعريف نوع لحالة Undo/Redo
+//  تعريف نوع لحالة Undo/Redo
 type HistoryState = {
   undo: () => void;
   redo: () => void;
@@ -90,15 +90,15 @@ type HistoryState = {
   canRedo: boolean;
 };
 
-// ✅ تعديل الـ hook لدعم Undo/Redo
+//  تعديل الـ hook لدعم Undo/Redo
 export default function useFormState(): [FormState, React.Dispatch<Action>, HistoryState] {
   const [state, dispatch] = useReducer(formReducer, undefined, initFormState);
   
-  // ✅ إضافة حالة التاريخ
+  //  إضافة حالة التاريخ
   const [history, setHistory] = useState<FormState[]>([state]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // ✅ تعديل الـ dispatch لتسجيل التاريخ
+  //  تعديل الـ dispatch لتسجيل التاريخ
   const enhancedDispatch = useCallback((action: Action) => {
     // تطبيق الإجراء للحصول على الحالة الجديدة
     const newState = formReducer(state, action);
@@ -113,7 +113,7 @@ export default function useFormState(): [FormState, React.Dispatch<Action>, Hist
     dispatch({ type: 'INTERNAL_UPDATE', payload: newState });
   }, [state, history, currentIndex]);
 
-  // ✅ دالة Undo
+  //  دالة Undo
   const undo = useCallback(() => {
     if (currentIndex > 0) {
       const newIndex = currentIndex - 1;
@@ -122,7 +122,7 @@ export default function useFormState(): [FormState, React.Dispatch<Action>, Hist
     }
   }, [currentIndex, history]);
 
-  // ✅ دالة Redo
+  //  دالة Redo
   const redo = useCallback(() => {
     if (currentIndex < history.length - 1) {
       const newIndex = currentIndex + 1;
@@ -131,7 +131,7 @@ export default function useFormState(): [FormState, React.Dispatch<Action>, Hist
     }
   }, [currentIndex, history]);
 
-  // ✅ حفظ في localStorage عند تغير الحالة
+  //  حفظ في localStorage عند تغير الحالة
   useEffect(() => {
     try {
       localStorage.setItem('formBuilderState', JSON.stringify(state));
@@ -140,7 +140,7 @@ export default function useFormState(): [FormState, React.Dispatch<Action>, Hist
     }
   }, [state]);
 
-  // ✅ إرجاع الحالة والدوال المحدثة
+  //  إرجاع الحالة والدوال المحدثة
   return [
     state, 
     enhancedDispatch, 

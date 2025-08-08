@@ -4,7 +4,7 @@ export const evaluateConditions = (field, formState, fieldValues) => {
   const conditions = Array.isArray(field.conditions) ? field.conditions : [];
 
   if (conditions.length === 0) {
-    return true; // No conditions, always visible
+    return true; 
   }
 
   return conditions.every(condition => {

@@ -1,19 +1,12 @@
-import { useState,type ChangeEvent,type FormEvent } from 'react';
-import { type Field } from '../types/formTypes';
-
+import { useState, type ChangeEvent, type FormEvent } from "react";
+import { type Field } from "../../types/formTypes";
+import style from './FieldEditor.module.css'
 interface FieldEditorProps {
   field: Field;
   onSave: (updatedField: Field) => void;
   onCancel: () => void;
 }
 
-// interface Field {
-//   id: string;
-//   label: string;
-//   type: string;
-//   required: boolean;
-//   options: string[];
-// }
 
 interface FieldEditorProps {
   field: Field;
@@ -26,20 +19,20 @@ const FieldEditor = ({ field, onSave, onCancel }: FieldEditorProps) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
   const handleOptionChange = (index: number, value: string) => {
     const newOptions = [...formData.options];
     newOptions[index] = value;
-    setFormData(prev => ({ ...prev, options: newOptions }));
+    setFormData((prev) => ({ ...prev, options: newOptions }));
   };
 
   const addOption = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       options: [...prev.options, `Option ${prev.options.length + 1}`],
     }));
@@ -49,7 +42,7 @@ const FieldEditor = ({ field, onSave, onCancel }: FieldEditorProps) => {
     if (formData.options.length <= 1) return;
     const newOptions = [...formData.options];
     newOptions.splice(index, 1);
-    setFormData(prev => ({ ...prev, options: newOptions }));
+    setFormData((prev) => ({ ...prev, options: newOptions }));
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -58,11 +51,11 @@ const FieldEditor = ({ field, onSave, onCancel }: FieldEditorProps) => {
   };
 
   return (
-    <div className="field-editor-overlay">
-      <div className="field-editor">
+    <div className={style.field_editor_overlay}>
+      <div className={style.field_editor}>
         <h3>Edit Field</h3>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className={style.form_group}>
             <label>Label</label>
             <input
               type="text"
@@ -73,7 +66,7 @@ const FieldEditor = ({ field, onSave, onCancel }: FieldEditorProps) => {
             />
           </div>
 
-          <div className="form-group">
+          <div className={style.form_group}>
             <label>
               <input
                 type="checkbox"
@@ -85,19 +78,19 @@ const FieldEditor = ({ field, onSave, onCancel }: FieldEditorProps) => {
             </label>
           </div>
 
-          {formData.type === 'dropdown' && (
-            <div className="form-group">
+          {formData.type === "dropdown" && (
+            <div className={style.form_group}>
               <label>Options</label>
               {formData.options.map((option, index) => (
-                <div key={index} className="option-item">
+                <div key={index} className={style.option_item}>
                   <input
                     type="text"
                     value={option}
                     onChange={(e) => handleOptionChange(index, e.target.value)}
                     required
                   />
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => removeOption(index)}
                     disabled={formData.options.length <= 1}
                   >
@@ -111,9 +104,11 @@ const FieldEditor = ({ field, onSave, onCancel }: FieldEditorProps) => {
             </div>
           )}
 
-          <div className="form-actions">
+          <div className={style.form_actions}>
             <button type="submit">Save</button>
-            <button type="button" onClick={onCancel}>Cancel</button>
+            <button type="button" onClick={onCancel}>
+              Cancel
+            </button>
           </div>
         </form>
       </div>

@@ -1,8 +1,8 @@
-import { useState, useEffect,type FormEvent } from 'react';
-import { getVisibleFields } from '../utils/formLogic';
-import { validateForm } from '../utils/validation';
-import type { Field, Action } from '../types/formTypes';
-
+import { useState, useEffect, type FormEvent } from "react";
+import { getVisibleFields } from "../../utils/formLogic";
+import { validateForm } from "../../utils/validation";
+import type { Field, Action } from "../../types/formTypes";
+import style from './FormPreview.module.css'
 // type Props = {
 //   formState: {
 //     fields: Field[];
@@ -16,7 +16,7 @@ type Props = {
     fields: Field[];
     fieldValues: Record<string, string>;
   };
-  dispatch: React.Dispatch<Action>; // ✅ هنا التعديل
+  dispatch: React.Dispatch<Action>; 
   onSubmit: (data: Record<string, string>) => void;
 };
 
@@ -33,7 +33,7 @@ const FormPreview = ({ formState, dispatch, onSubmit }: Props) => {
     setLocalValues(newValues);
 
     dispatch({
-      type: 'UPDATE_FIELD_VALUE',
+      type: "UPDATE_FIELD_VALUE",
       payload: { fieldId, value },
     });
   };
@@ -46,14 +46,17 @@ const FormPreview = ({ formState, dispatch, onSubmit }: Props) => {
       fieldValues: localValues,
     };
 
-    const { isValid, errors: validationErrors } = validateForm(tempFormState, localValues);
+    const { isValid, errors: validationErrors } = validateForm(
+      tempFormState,
+      localValues
+    );
 
     if (isValid) {
       const visibleFields = getVisibleFields(tempFormState, localValues);
       const submissionData: Record<string, string> = {};
 
       visibleFields.forEach((field: Field) => {
-        submissionData[field.id] = localValues[field.id] || '';
+        submissionData[field.id] = localValues[field.id] || "";
       });
 
       onSubmit(submissionData);
@@ -67,18 +70,18 @@ const FormPreview = ({ formState, dispatch, onSubmit }: Props) => {
   const renderField = (field: Field) => {
     const commonProps = {
       id: field.id,
-      value: localValues[field.id] || '',
+      value: localValues[field.id] || "",
       onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
         handleChange(field.id, e.target.value),
-      className: errors[field.id] ? 'error' : '',
+      className: errors[field.id] ? "error" : "",
     };
 
     switch (field.type) {
-      case 'text':
+      case "text":
         return <input type="text" {...commonProps} />;
-      case 'number':
+      case "number":
         return <input type="number" {...commonProps} />;
-      case 'dropdown':
+      case "dropdown":
         return (
           <select {...commonProps}>
             <option value="">Select an option</option>
@@ -95,11 +98,12 @@ const FormPreview = ({ formState, dispatch, onSubmit }: Props) => {
   };
 
   return (
-    <div className="form-preview">
+    <div className={style.form_preview}>
       <h2>Form Preview</h2>
-      <div className="debug-info">
+      <div className={style.debug_info}>
         <small>
-          Visible fields: {visibleFields.length} | Total fields: {formState.fields.length}
+          Visible fields: {visibleFields.length} | Total fields:{" "}
+          {formState.fields.length}
         </small>
       </div>
       <form onSubmit={handleSubmit}>
@@ -107,19 +111,21 @@ const FormPreview = ({ formState, dispatch, onSubmit }: Props) => {
           <p>No fields to display. Add fields in the Builder tab.</p>
         ) : (
           visibleFields.map((field: Field) => (
-            <div key={field.id} className="form-group">
+            <div key={field.id} className={style.form_group}>
               <label htmlFor={field.id}>
                 {field.label}
-                {field.required && <span className="required">*</span>}
+                {field.required && <span className={style.required}>*</span>}
               </label>
               {renderField(field)}
-              {errors[field.id] && <div className="error-message">{errors[field.id]}</div>}
+              {errors[field.id] && (
+                <div className={style.error_message}>{errors[field.id]}</div>
+              )}
             </div>
           ))
         )}
 
         {visibleFields.length > 0 && (
-          <button type="submit" className="submit-btn">
+          <button type="submit" className={style.submit_btn}>
             Submit Form
           </button>
         )}

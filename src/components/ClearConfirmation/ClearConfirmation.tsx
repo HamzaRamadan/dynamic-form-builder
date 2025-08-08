@@ -1,5 +1,5 @@
 import  { useEffect } from 'react';
-
+import style from './ClearConfirmation.module.css'
 interface ClearConfirmationProps {
   visible: boolean;
   onCancel: () => void;
@@ -26,7 +26,6 @@ export default function ClearConfirmation({
 
     if (showSuccess) {
       timeout = window.setTimeout(() => {
-        // auto-hide logic if needed
       }, 3000);
     }
 
@@ -36,15 +35,16 @@ export default function ClearConfirmation({
   return (
     <>
       {visible && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className={style.modal_overlay}>
+          <div className={style.modal_content}>
             <h3>{title}</h3>
             <p>{message}</p>
-            <div className="modal-actions">
-              <button className="modal-btn cancel-btn" onClick={onCancel}>
+            <div className={style.modal_actions}>
+
+              <button className={`${style.modal_btn} ${style.cancel_btn}`} onClick={onCancel}>
                 Cancel
               </button>
-              <button className="modal-btn confirm-btn" onClick={onConfirm}>
+              <button className={`${style.modal_btn} ${style.confirm_btn}`} onClick={onConfirm}>
                 {confirmText}
               </button>
             </div>
@@ -53,10 +53,10 @@ export default function ClearConfirmation({
       )}
 
       {showSuccess && (
-        <div className="success-alert">
-          <div className="alert-content">
-            <span className="alert-icon">✓</span>
-            <span className="alert-message">{successMessage}</span>
+        <div className={style.success_alert}>
+          <div className={style.alert_content}>
+            <span className={style.alert_icon}>✓</span>
+            <span className={style.alert_message}>{successMessage}</span>
           </div>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import style from './ConditionEditor.module.css';
 
 interface FormField {
   id: string;
@@ -26,6 +27,8 @@ const ConditionEditor = ({ fieldId, formFields, onSave, onCancel }: ConditionEdi
     value: '',
   });
 
+  const [notification, setNotification] = useState<string | null>(null);
+
   const availableFields = formFields.filter(
     (field: FormField) => field.id !== fieldId && field.type !== 'dropdown'
   );
@@ -35,17 +38,45 @@ const ConditionEditor = ({ fieldId, formFields, onSave, onCancel }: ConditionEdi
     setCondition(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // إظهار الرسالة الأول
+  setNotification("✅ Condition added successfully!");
+
+  // بعد ثانية ننفذ الحفظ ونقفل
+  setTimeout(() => {
     onSave(fieldId, condition);
-  };
+    setNotification(null);
+  }, 1000);
+};
+
 
   return (
-    <div className="condition-editor-overlay">
-      <div className="condition-editor">
+    <div className={style.condition_editor_overlay}>
+      
+      {/* الـ Notification */}
+      {notification && (
+        <div style={{
+          position: "fixed",
+          top: "20px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "#4caf50",
+          color: "#fff",
+          padding: "10px 20px",
+          borderRadius: "6px",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+          zIndex: 1000
+        }}>
+          {notification}
+        </div>
+      )}
+
+      <div className={style.condition_editor}>
         <h3>Add Condition</h3>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+          <div className={style.form_group}>
             <label>Field</label>
             <select
               name="fieldId"
@@ -62,7 +93,7 @@ const ConditionEditor = ({ fieldId, formFields, onSave, onCancel }: ConditionEdi
             </select>
           </div>
 
-          <div className="form-group">
+          <div className={style.form_group}>
             <label>Operator</label>
             <select
               name="operator"
@@ -74,7 +105,7 @@ const ConditionEditor = ({ fieldId, formFields, onSave, onCancel }: ConditionEdi
             </select>
           </div>
 
-          <div className="form-group">
+          <div className={style.form_group}>
             <label>Value</label>
             <input
               type="text"
@@ -85,7 +116,7 @@ const ConditionEditor = ({ fieldId, formFields, onSave, onCancel }: ConditionEdi
             />
           </div>
 
-          <div className="form-actions">
+          <div className={style.form_actions}>
             <button type="submit">Add Condition</button>
             <button type="button" onClick={onCancel}>Cancel</button>
           </div>

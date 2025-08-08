@@ -24,7 +24,7 @@ export interface FormState {
 export type Action =
   | { type: 'ADD_FIELD'; payload: Field }
   | { type: 'UPDATE_FIELD'; payload: Field }
-  | { type: 'DELETE_FIELD'; payload: string } // field id
+  | { type: 'DELETE_FIELD'; payload: string }
   | { type: 'UPDATE_FIELD_VALUE'; payload: { fieldId: string; value: string } }
   | { type: 'RESET_FORM' }
-  | { type: 'INTERNAL_UPDATE'; payload: FormState }; // ✅ أضف دي
+  | { type: 'INTERNAL_UPDATE'; payload: FormState }; 
